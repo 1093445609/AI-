@@ -1,0 +1,15 @@
+# 把本文件重命名为 api_config.txt（放 data/ 目录下）即可启用真·大模型聊天。
+# 不配置也能用：离线人格照样聊天、记名字、记偏好。
+# 三行依次是：API key / 接口地址（OpenAI 兼容，默认 DeepSeek）/ 模型名
+#
+# 怎么选最便宜（2026-11 官方价，元 / 百万 tokens）：
+#   deepseek-flash    输入未命中 1(空闲) / 2(高峰)；输出 4 / 8   ← 桌宠用这个
+#   deepseek-v4-pro   输入未命中 4.5 / 9.0；   输出 13.5 / 27     ← 猫娘用不上，别选
+# 空闲价 = 高峰价的一半。高峰时段：周一至周五 9:00-12:00、14:00-18:00（北京时间），
+# 其余时间（含周末、法定节假日全天）都是空闲时段，半价。
+# 换通义：https://dashscope.aliyuncs.com/compatible-mode/v1 + qwen-turbo
+# 换智谱：https://open.bigmodel.cn/api/paas/v4 + glm-4-flash（有免费额度）
+#
+sk-xxxxxxxxxxxxxxxx
+https://api.deepseek.com/v1
+deepseek-flash

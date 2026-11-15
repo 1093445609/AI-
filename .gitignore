@@ -1,0 +1,20 @@
+# ===== 个人隐私与密钥：绝对不要提交 =====
+# 你的真实 API Key（内含 DeepSeek key，推到公网几分钟内就会被爬走盗刷）
+data/api_config.txt
+# 你的全部聊天记录、亲密度、金币、成就、待办
+data/pet.db
+data/pet.db-journal
+data/pet.db-wal
+
+# ===== 编译产物（clone 后用 重新编译.bat 生成）=====
+out/
+*.class
+
+# ===== IDE 与系统垃圾 =====
+.idea/
+*.iml
+.vscode/
+*.log
+*.tmp
+Thumbs.db
+.DS_Store

@@ -1,0 +1,28 @@
+﻿# ===== 桌宠 Java 面试题库（随便改，改完再点一次菜单就生效，不用重启）=====
+#
+# 格式：一行一题，用竖线 | 分成三段
+#       题目 | 参考答案 | 关键词1,关键词2,关键词3
+#
+# 规则：
+#   1. 以 # 开头的行是注释，空行忽略；写错了只跳过那一行，不会炸；
+#   2. 关键词用逗号隔开（中文逗号「，」也认），回答里【含任意一个】就算答对；
+#   3. 只写「题目|参考答案」两段也行，这种题写了答案就算对（不判分）；
+#   4. 文件请存成 UTF-8 编码，用记事本 / VS Code 直接改，别用 Word 另存；
+#   5. 关键词不区分大小写，写 oldcap 和 OldCap 一个效果。
+#
+# 下面 14 题是内置题库，可以删、可以改，也可以继续往下加自己的题。
+
+HashMap 为什么容量一定是 2 的幂？ | 为了用 (n-1) & hash 位运算代替取模：容量是 2 的幂时，n-1 的二进制低位全 1，与运算等价于 hash % n，速度快且散列均匀。 | 2的幂,位运算,取模,与运算,(n-1)
+JDK8 HashMap 扩容后，元素怎么决定留在原位还是搬到新位置？ | 看 (e.hash & oldCap) 是否为 0：为 0 留在原下标 i，不为 0 搬到 i + oldCap，一条链表会被拆成高低位两条。 | oldcap,hash & oldcap,高位,原位,翻倍
+new HashMap<>(100000) 传十万，实际初始容量是多少？ | tableSizeFor 会把容量抬到不小于「期望容量/0.75」的最小 2 的幂：ceil(100000/0.75)=133334 → 2^18 = 262144。 | 262144,2^18,tablesizefor,18次方
+ArrayList 默认扩容是多少倍？怎么扩的？ | 1.5 倍：newCapacity = oldCapacity + (oldCapacity >> 1)，10 → 15 → 22，用 Arrays.copyOf 整体复制。 | 1.5,oldcapacity >> 1
+ArrayList 的 modCount 字段是干什么用的？ | 记录结构性修改次数。迭代器遍历时对比自己的 expectedModCount，不一致就抛 ConcurrentModificationException（fail-fast 快速失败机制）。 | fail-fast,快速失败,并发修改,modcount不一致,concurrentmodification
+如果 try 里已经 return 了，finally 还会执行吗？finally 里的 return 会怎样？ | finally 一定执行。finally 里的 return 会覆盖 try 里的返回值（这是大坑），所以禁止在 finally 里写 return。 | 覆盖,吞掉,会执行,一定执行
+try-with-resources 多个资源时，关闭的顺序是什么？ | 逆序关闭：后声明的先关，正好和声明顺序相反，保证依赖资源先释放。 | 逆序,倒序,反序,相反
+String s = "a" + "b"，编译之后 s 是什么？ | 编译期常量折叠，直接变成 s = "ab"，进字符串常量池，和 String s = "ab" 完全一样。 | 常量折叠,常量池,编译期,"ab"
+Error 和 Exception 有什么区别？ | 都是 Throwable 的子类。Error 是程序无法处理的严重错误（OutOfMemoryError、StackOverflowError），一般不捕获；Exception 是程序可以处理，分 checked（编译期强制处理）和 unchecked（RuntimeException）。 | 无法处理,不能处理,严重,oome,堆内存
+为什么重写 equals 必须同时重写 hashCode？ | hashCode 约定：equals 相等的对象必须有相同 hashCode。不重写的话，两个「相等」对象 hashCode 不同，放进 HashSet/HashMap 会被当成两个不同的元素。 | hashcode,hash,约定,set,map
+(n-1) & hash 这个位运算等价于哪种算术运算？前提是什么？ | 等价于 hash % n（对容量取模），前提是容量 n 是 2 的幂。 | 取模,模运算,%
+HashMap 链表转红黑树需要满足哪两个条件？ | 链表长度达到 8，并且 table 数组长度 ≥ 64（不满足就先扩容而不是树化）。 | 8,64,树化,红黑树
+checked 异常和 unchecked 异常的区别是什么？ | checked 异常编译期强制处理（必须 try/catch 或 throws），如 IOException；unchecked 是 RuntimeException 及其子类，编译器不强制，如 NullPointerException。 | 编译,runtime,运行时
+为什么 String 拼接用 StringBuilder 比 + 快？ | String 不可变，+ 每次都 new 新对象再复制内容，循环拼接会产生大量临时对象；StringBuilder 在内部 char[] 上原地追加，扩容才复制。 | 不可变,新对象,复制,临时对象

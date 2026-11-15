@@ -1,0 +1,3 @@
+# 三个 .bat 是 GBK 编码 + CRLF 换行（cmd 的要求），禁止 Git 做行尾转换
+*.bat -text
+*.bat binary
